@@ -168,7 +168,8 @@ package body Bytecode_VM is
             when 16#84# =>
                declare
                   Index : constant Local_Index := Local_Index (Read_Byte);
-                  Delta : constant Interfaces.Integer_32 := Read_Signed_Byte;
+                  Increment : constant Interfaces.Integer_32 :=
+                    Read_Signed_Byte;
                begin
                   if not Initialized (Index) then
                      raise Bytecode_Error with
@@ -176,7 +177,7 @@ package body Bytecode_VM is
                   end if;
                   Locals (Index) :=
                     To_Signed (To_Unsigned (Locals (Index))
-                               + To_Unsigned (Delta));
+                               + To_Unsigned (Increment));
                end;
             when 16#99# =>
                Left := Pop;
